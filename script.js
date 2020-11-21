@@ -13,7 +13,7 @@ function updateUi() {
   meets.sort((x1, x2) => toMinutes(x1[0]) - toMinutes(x2[0])).forEach((x) => {
     const element = document.createElement('p');
     const [ hours, minutes ] = x[0];
-    element.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x[1]} : ${x[2]}`;
+    element.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x[1]} : <i>${x[2]}</i>`;
     div.appendChild(element);
   });
 }
@@ -21,10 +21,10 @@ function updateUi() {
 window.addEventListener('load', () => {
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
-    const code = codeInput.value;
     const name = nameInput.value;
-    if (time.length === 2 && code && name) {
-      meets.push([ time.map((x) => Number(x)), code.toLowerCase(), name ]);
+    const code = codeInput.value;
+    if (time.length === 2 && name && code) {
+      meets.push([ time.map((x) => Number(x)), name, code.toLowerCase() ]);
       updateUi();
 
       timeInput.value = null;
