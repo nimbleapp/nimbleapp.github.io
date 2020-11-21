@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<script src="script.js"></script>
 
 <head>
   <meta charset="utf-8">
@@ -14,6 +15,7 @@
 <body>
   <div class="container justify-content-center">
     <h1>Google Assistant</h1>
+    <div id="meets"></div>
     <div class="row">
       <div class="col">
         <div class="input-group">
@@ -21,10 +23,12 @@
             <span class="input-group-text">Time and code</span>
           </div>
           <input
+            id="timeInput"
             type="time" 
             class="form-control"
           >
           <input
+            id="codeInput"
             type="text"
             class="form-control"
           >
@@ -32,6 +36,7 @@
       </div>
       <div class="col-md-auto">
         <button
+          id="addButton"
           type="button"
           class="btn btn-dark"
         >
