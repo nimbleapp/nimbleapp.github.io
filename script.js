@@ -1,4 +1,4 @@
-const meets = [];
+let meets = [];
 
 function updateUi() {
   const div = window.meets;
@@ -19,6 +19,12 @@ function updateUi() {
 }
 
 window.addEventListener('load', () => {
+  const save = localStorage.getItem('save');
+  if (save) {
+    meets = JSON.parse(save);
+    updateUi();
+  }
+
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
     const name = nameInput.value;
@@ -29,6 +35,7 @@ window.addEventListener('load', () => {
         code : code.toLowerCase(),
         time : time.map((x) => Number(x)),
       });
+      localStorage.setItem('save', JSON.stringify(meets));
       updateUi();
 
       timeInput.value = null;
