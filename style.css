@@ -10,7 +10,7 @@ h1, p {
 }
 
 .trashcan {
-  width: 25px;
+  width: 29px;
   opacity: 0;
   transition-duration: 0.5s;
   cursor: pointer;
