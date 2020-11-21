@@ -11,14 +11,28 @@ function updateUi() {
   }
 
   meets.sort((x1, x2) => toMinutes(x1.time) - toMinutes(x2.time)).forEach((x) => {
+    const rowElement = document.createElement('div');
+    rowElement.className = 'row';
+
+    const colMdAutoElement = document.createElement('div');
+    colMdAutoElement.className = 'col-md-auto';
+
     const textElement = document.createElement('p');
-    const buttonElement = document.createElement('button');
     const [ hours, minutes ] = x.time;
-    buttonElement.className = 'btn btn-dark';
-    buttonElement.innerHTML = '<img src="./img/trash.svg"></img>'
     textElement.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
-    div.appendChild(buttonElement);
-    div.appendChild(textElement);
+
+    const colElement = document.createElement('div');
+    colElement.className = 'col';
+
+    const buttonElement = document.createElement('button');
+    buttonElement.className = 'btn float-right';
+    buttonElement.innerHTML = '<img src="./img/trash.svg" width="16px"></img>';
+
+    colMdAutoElement.appendChild(textElement);
+    colElement.appendChild(buttonElement);
+    rowElement.appendChild(colMdAutoElement);
+    rowElement.appendChild(colElement);
+    div.appendChild(rowElement);
   });
 }
 
