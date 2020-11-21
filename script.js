@@ -29,14 +29,16 @@ function updateUi() {
     colElement.className = 'col';
 
     const imgElement = document.createElement('img');
-    imgElement.className = 'float-right'
+    imgElement.className = 'trashcan float-right'
     imgElement.src = './img/trash.svg';
-    imgElement.style.width = '16px';
     imgElement.addEventListener('click', () => {
       meets.splice(i, 1);
       updateUi();
       saveData();
     });
+
+    rowElement.addEventListener('mouseover', () => { imgElement.style.animation = 'fade 0.2s ease-in-out forwards'; });
+    // rowElement.addEventListener('mouseleave', () => { imgElement.style.animation = 'fade 0.2s ease-in-out backwards'; });
 
     colMdAutoElement.appendChild(textElement);
     colElement.appendChild(imgElement);

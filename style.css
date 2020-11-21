@@ -5,3 +5,19 @@ body {
 h1, p {
   color: #cccccc;
 }
+
+.trashcan {
+  width: 16px;
+  opacity: 0;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
