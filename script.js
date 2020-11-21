@@ -11,10 +11,14 @@ function updateUi() {
   }
 
   meets.sort((x1, x2) => toMinutes(x1.time) - toMinutes(x2.time)).forEach((x) => {
-    const element = document.createElement('p');
+    const textElement = document.createElement('p');
+    const buttonElement = document.createElement('button');
     const [ hours, minutes ] = x.time;
-    element.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
-    div.appendChild(element);
+    buttonElement.className = 'btn btn-dark';
+    buttonElement.innerHTML = '<img src="./img/trash.svg"></img>'
+    textElement.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
+    div.appendChild(buttonElement);
+    div.appendChild(textElement);
   });
 }
 

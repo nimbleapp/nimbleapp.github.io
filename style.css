@@ -8,3 +8,6 @@ h1{
 p {
   color : #cccccc;
 }
+button {
+  class : "btn btn-dark"
+}
