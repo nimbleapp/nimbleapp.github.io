@@ -38,7 +38,7 @@ function updateUi() {
     });
 
     rowElement.addEventListener('mouseover', () => { imgElement.style.animation = 'fade 0.2s ease-in-out forwards'; });
-    // rowElement.addEventListener('mouseleave', () => { imgElement.style.animation = 'fade 0.2s ease-in-out backwards'; });
+    rowElement.addEventListener('mouseleave', () => { imgElement.style.animation = 'fade 0.2s ease-in-out backwards'; });
 
     colMdAutoElement.appendChild(textElement);
     colElement.appendChild(imgElement);
