@@ -24,12 +24,13 @@ function updateUi() {
     const colElement = document.createElement('div');
     colElement.className = 'col';
 
-    const buttonElement = document.createElement('button');
-    buttonElement.className = 'btn float-right';
-    buttonElement.innerHTML = '<img src="./img/trash.svg" width="16px"></img>';
+    const imgElement = document.createElement('img');
+    imgElement.className = 'float-right'
+    imgElement.src = './img/trash.svg';
+    imgElement.style.width = '16px';
 
     colMdAutoElement.appendChild(textElement);
-    colElement.appendChild(buttonElement);
+    colElement.appendChild(imgElement);
     rowElement.appendChild(colMdAutoElement);
     rowElement.appendChild(colElement);
     div.appendChild(rowElement);
