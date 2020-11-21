@@ -12,8 +12,8 @@ function updateUi() {
 
   meets.sort((x1, x2) => toMinutes(x1[0]) - toMinutes(x2[0])).forEach((x) => {
     const element = document.createElement('p');
-    const hours = x[0][0];
-    element.innerHTML = `${hours % 12 || 12}:${x[0][1]} ${hours < 12 ? 'A' : 'P'}M - ${x[1]}`;
+    const [ hours, minutes ] = x[0];
+    element.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x[1]}`;
     div.appendChild(element);
   });
 }
@@ -23,11 +23,20 @@ window.addEventListener('load', () => {
     const time = timeInput.value.split(':');
     const code = codeInput.value;
     if (time.length === 2 && code) {
-      meets.push([ time.map((x) => Number(x)), code ]);
+      meets.push([ time.map((x) => Number(x)), code.toLowerCase() ]);
       updateUi();
 
       timeInput.value = null;
       codeInput.value = '';
     }
   });
+
+  setInterval(() => {
+    const date = new Date();
+    if (date.getSeconds() === 0) {
+      meets.filter((x) => x[0][0] === date.getHours() && x[0][1] === date.getMinutes()).forEach((x) => {
+        window.open(`https://g.co/meet/${x[1]}`);
+      });
+    }
+  }, 1000);
 });
