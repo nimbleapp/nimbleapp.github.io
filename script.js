@@ -37,8 +37,8 @@ function updateUi() {
       saveData();
     });
 
-    rowElement.addEventListener('mouseover', () => { imgElement.style.animation = 'fade 0.2s ease-in-out forwards'; });
-    rowElement.addEventListener('mouseleave', () => { imgElement.style.animation = 'fade 0.2s ease-in-out backwards'; });
+    rowElement.addEventListener('mouseover', () => { imgElement.style.animation = 'fadeIn 0.2s ease-in-out forwards'; });
+    rowElement.addEventListener('mouseleave', () => { imgElement.style.animation = 'fadeOut 0.2s ease-in-out forwards'; });
 
     colMdAutoElement.appendChild(textElement);
     colElement.appendChild(imgElement);
