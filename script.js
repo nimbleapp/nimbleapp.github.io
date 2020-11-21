@@ -10,10 +10,10 @@ function updateUi() {
     return time[0] * 60 + time[1];
   }
 
-  meets.sort((x1, x2) => toMinutes(x1[0]) - toMinutes(x2[0])).forEach((x) => {
+  meets.sort((x1, x2) => toMinutes(x1.time) - toMinutes(x2.time)).forEach((x) => {
     const element = document.createElement('p');
-    const [ hours, minutes ] = x[0];
-    element.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x[1]} : <i>${x[2]}</i>`;
+    const [ hours, minutes ] = x.time;
+    element.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
     div.appendChild(element);
   });
 }
@@ -24,7 +24,11 @@ window.addEventListener('load', () => {
     const name = nameInput.value;
     const code = codeInput.value;
     if (time.length === 2 && name && code) {
-      meets.push([ time.map((x) => Number(x)), name, code.toLowerCase() ]);
+      meets.push({
+        name,
+        code : code.toLowerCase(),
+        time : time.map((x) => Number(x)),
+      });
       updateUi();
 
       timeInput.value = null;
@@ -36,8 +40,8 @@ window.addEventListener('load', () => {
   setInterval(() => {
     const date = new Date();
     if (date.getSeconds() === 0) {
-      meets.filter((x) => x[0][0] === date.getHours() && x[0][1] === date.getMinutes()).forEach((x) => {
-        window.open(`https://g.co/meet/${x[1]}`);
+      meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => {
+        window.open(`https://g.co/meet/${x.code}`);
       });
     }
   }, 1000);
