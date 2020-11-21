@@ -18,28 +18,6 @@ function updateUi() {
   });
 }
 
-var isPopupBlockerActivated = function(popupWindow) {
-  if (popupWindow) {
-      if (/chrome/.test(navigator.userAgent.toLowerCase())) {
-          try {
-              popupWindow.focus();
-          } catch (e) {
-              return true;
-          }
-      } else {
-          popupWindow.onload = function() {
-              return (popupWindow.innerHeight > 0) === false;
-          };
-      }
-  } else {
-      return true;
-  }
-  return false;
-};
-var popup = window.open('https://www.google.com', '_blank');
-if (isPopupBlockerActivated(popup)) {
-    // Do what you want.
-}
 window.addEventListener('load', () => {
   const save = localStorage.getItem('save');
   if (save) {
