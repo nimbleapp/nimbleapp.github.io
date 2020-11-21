@@ -1,16 +1,20 @@
 let meets = [];
 
+function saveData() {
+  localStorage.setItem('save', JSON.stringify(meets));
+}
+
 function updateUi() {
   const div = window.meets;
-  for (const element of div.children) {
-    element.remove();
+  while (div.children.length !== 0) {
+    div.children[0].remove();
   }
 
   function toMinutes(time) {
     return time[0] * 60 + time[1];
   }
 
-  meets.sort((x1, x2) => toMinutes(x1.time) - toMinutes(x2.time)).forEach((x) => {
+  meets.sort((x1, x2) => toMinutes(x1.time) - toMinutes(x2.time)).forEach((x, i) => {
     const rowElement = document.createElement('div');
     rowElement.className = 'row';
 
@@ -27,6 +31,11 @@ function updateUi() {
     const buttonElement = document.createElement('button');
     buttonElement.className = 'btn float-right';
     buttonElement.innerHTML = '<img src="./img/trash.svg" width="16px"></img>';
+    buttonElement.addEventListener('click', () => {
+      meets.splice(i, 1);
+      updateUi();
+      saveData();
+    });
 
     colMdAutoElement.appendChild(textElement);
     colElement.appendChild(buttonElement);
@@ -53,7 +62,7 @@ window.addEventListener('load', () => {
         code : code.toLowerCase(),
         time : time.map((x) => Number(x)),
       });
-      localStorage.setItem('save', JSON.stringify(meets));
+      saveData();
       updateUi();
 
       timeInput.value = null;
