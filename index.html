@@ -24,15 +24,12 @@
 
 <body>  
   <div class="container justify-content-center">
-    <div class="mt-5">
-      <div class="mb-3">
-        <h1>Nimble</h1>
-      </div>
+    <div class="mt-5 mb-3">
+      <h1>Nimble</h1>
     </div>
     <div
       id="permWarning"
       class="alert alert-dark"
-      role="alert"
     >
 Check your browser's permissions to ensure that this website can open popups.
       <button
@@ -42,6 +39,7 @@ Check your browser's permissions to ensure that this website can open popups.
         <span>&times;</span>
       </button>
     </div>
+    <div id="warnings"></div>
     <div id="meets"></div>
     <div class="row">
       <div class="col">
@@ -84,15 +82,14 @@ Check your browser's permissions to ensure that this website can open popups.
       type="button"
     >
       <img
-        id="settingsIcon"
-        src="img/gear.svg"
+        src="./img/gear.svg"
         width="16px"
       >
     </button>
     <button
-    id="volumeButton"
-    class="btn btn-dark rounded-circle mt-2"
-    type="button"
+      id="volumeButton"
+      class="btn btn-dark rounded-circle mt-2"
+      type="button"
     >
       <img
         id="volumeIcon"

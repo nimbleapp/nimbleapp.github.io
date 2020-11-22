@@ -110,7 +110,20 @@ window.addEventListener('load', () => {
     const date = new Date();
     if (date.getSeconds() === 0) {
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
-      currentMeets.forEach((x) => window.open(`https://g.co/meet/${x.code}`));
+      if (currentMeets.map((x) => `https://g.co/meet/${x.code}`).filter((x) => !window.open(x)).forEach((x) => {
+        const warning = document.createElement('div');
+        warning.className = 'alert alert-danger';
+        warning.innerHTML = `The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. ` +
+          `Click <a href=${x} target="_blank">here<a> to join the meet.`;
+
+        const button = document.createElement('button');
+        button.className = 'close';
+        button.innerHTML = '<span>&times;</span>';
+        button.addEventListener('click', () => button.parentNode.remove());
+
+        warning.appendChild(button);
+        warnings.appendChild(warning);
+      }));
 
       if (currentMeets.length !== 0 && doPlaySound) {
         playSound();
