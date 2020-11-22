@@ -80,7 +80,7 @@ window.addEventListener('load', () => {
     });
   }
 
-  typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === 'Custom link' ? 'Link' : 'Code'; });
+  typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === 'Google Meet' ? 'Code' : 'Link'; });
 
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
