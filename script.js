@@ -24,7 +24,7 @@ function updateMeetUi() {
     colMdAutoElement.className = 'col-md-auto';
 
     const textElement = document.createElement('p');
-    const [hours, minutes] = x.time;
+    const [ hours, minutes ] = x.time;
     textElement.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
 
     const colElement = document.createElement('div');
@@ -87,8 +87,8 @@ window.addEventListener('load', () => {
     if (time.length === 2 && name && code) {
       meets.push({
         name,
-        code: code.toLowerCase(),
-        time: time.map((x) => Number(x)),
+        code : code.toLowerCase(),
+        time : time.map((x) => Number(x)),
       });
       updateMeetUi();
       saveData();
@@ -109,12 +109,12 @@ window.addEventListener('load', () => {
   setInterval(() => {
     const date = new Date();
     if (date.getSeconds() === 0) {
-      meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => {
-        window.open(`https://g.co/meet/${x.code}`);
-        if (doPlaySound) {
-          playSound();
-        }
-      });
+      const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
+      currentMeets.forEach((x) => window.open(`https://g.co/meet/${x.code}`));
+
+      if (currentMeets.length !== 0 && doPlaySound) {
+        playSound();
+      }
     }
   }, 1000);
 });
