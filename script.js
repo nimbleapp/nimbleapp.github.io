@@ -1,4 +1,4 @@
- let doHideWarning = false;
+let doHideWarning = false;
 let doPlaySound = false;
 let meets = [];
 
