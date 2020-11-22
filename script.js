@@ -77,7 +77,7 @@ window.addEventListener('load', () => {
       doHideWarning = true;
       permWarning.remove();
       saveData();
-    })
+    });
   }
 
   typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === 'Custom link' ? 'Link' : 'Code'; });
