@@ -35,7 +35,7 @@ function updateMeetUi() {
     imgElement.src = './img/trash.svg';
     imgElement.addEventListener('click', () => {
       meets.splice(i, 1);
-      updateUi();
+      updateMeetUi();
       saveData();
     });
 
