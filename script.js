@@ -1,7 +1,8 @@
+let doHideWarning = false;
 let meets = [];
 
 function saveData() {
-  localStorage.setItem('save', JSON.stringify(meets));
+  localStorage.setItem('save', JSON.stringify({ doHideWarning, meets }));
 }
 
 function updateUi() {
@@ -51,8 +52,20 @@ function updateUi() {
 window.addEventListener('load', () => {
   const save = localStorage.getItem('save');
   if (save) {
-    meets = JSON.parse(save);
+    const json = JSON.parse(save);
+    doHideWarning = json.doHideWarning;
+    meets = json.meets;
     updateUi();
+  }
+
+  if (doHideWarning) {
+    permWarning.remove();
+  } else {
+    closeWarningButton.addEventListener('click', () => {
+      doHideWarning = true;
+      permWarning.remove();
+      saveData();
+    })
   }
 
   addButton.addEventListener('click', () => {
@@ -77,9 +90,7 @@ window.addEventListener('load', () => {
   setInterval(() => {
     const date = new Date();
     if (date.getSeconds() === 0) {
-      meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => {
-        window.open(`https://g.co/meet/${x.code}`);
-      });
+      meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => window.open(`https://g.co/meet/${x.code}`));
     }
   }, 1000);
 });
