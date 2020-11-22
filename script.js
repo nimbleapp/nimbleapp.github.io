@@ -80,6 +80,8 @@ window.addEventListener('load', () => {
     })
   }
 
+  typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === 'Custom link' ? 'Link' : 'Code'; });
+
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
     const name = nameInput.value;
