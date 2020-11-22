@@ -90,7 +90,10 @@ window.addEventListener('load', () => {
   setInterval(() => {
     const date = new Date();
     if (date.getSeconds() === 0) {
-      meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => window.open(`https://g.co/meet/${x.code}`));
+      meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => {
+        window.open(`https://g.co/meet/${x.code}`);
+        (new Audio('./sounds/ring.mp3')).play();
+      });
     }
   }, 1000);
 });
