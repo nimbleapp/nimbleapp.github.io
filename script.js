@@ -1,11 +1,12 @@
 let doHideWarning = false;
+let doPlaySound = false;
 let meets = [];
 
 function saveData() {
-  localStorage.setItem('save', JSON.stringify({ doHideWarning, meets }));
+  localStorage.setItem('save', JSON.stringify({ doHideWarning, doPlaySound, meets }));
 }
 
-function updateUi() {
+function updateMeetUi() {
   const div = window.meets;
   while (div.children.length !== 0) {
     div.children[0].remove();
@@ -49,13 +50,20 @@ function updateUi() {
   });
 }
 
+function updateVolumeButtonUi() {
+  volumeIcon.src = `./img/volume${doPlaySound ? 'On' : 'Off'}.svg`;
+}
+
 window.addEventListener('load', () => {
   const save = localStorage.getItem('save');
   if (save) {
     const json = JSON.parse(save);
     doHideWarning = json.doHideWarning;
+    doPlaySound = json.doPlaySound;
     meets = json.meets;
-    updateUi();
+
+    updateMeetUi();
+    updateVolumeButtonUi();
   }
 
   if (doHideWarning) {
@@ -78,8 +86,8 @@ window.addEventListener('load', () => {
         code : code.toLowerCase(),
         time : time.map((x) => Number(x)),
       });
+      updateMeetUi();
       saveData();
-      updateUi();
 
       timeInput.value = null;
       codeInput.value = '';
@@ -87,12 +95,20 @@ window.addEventListener('load', () => {
     }
   });
 
+  volumeButton.addEventListener('click', () => {
+    doPlaySound = !doPlaySound;
+    updateVolumeButtonUi();
+    saveData();
+  });
+
   setInterval(() => {
     const date = new Date();
     if (date.getSeconds() === 0) {
       meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => {
         window.open(`https://g.co/meet/${x.code}`);
-        (new Audio('./sounds/ring.mp3')).play();
+        if (doPlaySound) {
+          (new Audio('./sounds/ring.mp3')).play();
+        }
       });
     }
   }, 1000);
