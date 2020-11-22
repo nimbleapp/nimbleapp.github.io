@@ -54,6 +54,10 @@ function updateVolumeButtonUi() {
   volumeIcon.src = `./img/volume${doPlaySound ? 'On' : 'Off'}.svg`;
 }
 
+function playSound() {
+  (new Audio('./sounds/ring.mp3')).play();
+}
+
 window.addEventListener('load', () => {
   const save = localStorage.getItem('save');
   if (save) {
@@ -97,6 +101,7 @@ window.addEventListener('load', () => {
 
   volumeButton.addEventListener('click', () => {
     doPlaySound = !doPlaySound;
+    playSound();
     updateVolumeButtonUi();
     saveData();
   });
@@ -107,7 +112,7 @@ window.addEventListener('load', () => {
       meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()).forEach((x) => {
         window.open(`https://g.co/meet/${x.code}`);
         if (doPlaySound) {
-          (new Audio('./sounds/ring.mp3')).play();
+          playSound();
         }
       });
     }
