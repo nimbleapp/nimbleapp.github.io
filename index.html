@@ -23,6 +23,16 @@
 </head>
 
 <body>  
+  <div id="sideNav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Zoom Link</a>
+    <a href="#">Google Meet Link</a>
+    <a href="#">Regular Links</a>
+    <a href="#">FAQ, Contact Us</a>
+  </div>
+  
+  <div id="main">
+ 
   <div class="container justify-content-center">
     <div class="mt-5 mb-3">
       <h1>Nimble</h1>
@@ -80,6 +90,7 @@ Check your browser's permissions to ensure that this website can open popups.
       id="settingsButton"
       class="btn btn-dark rounded-circle mt-2"
       type="button"
+      onclick="openNav()"
     >
       <img
         src="./img/gear.svg"
@@ -98,6 +109,7 @@ Check your browser's permissions to ensure that this website can open popups.
       >
     </button>
   </div>
+</div>
 </body>
 
 </html>
