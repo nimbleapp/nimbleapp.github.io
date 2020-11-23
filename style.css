@@ -16,14 +16,11 @@ h1, p {
   padding-top: 8px;
 }
 
-<<<<<<< Updated upstream
-=======
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited, .btn-primary:focus, .btn-primary:active:focus {
   background-color: #2fb8ff;
   border-color: #2fb8ff;
 }
 
->>>>>>> Stashed changes
 @keyframes fadeIn {
   from {
     opacity: 0;
