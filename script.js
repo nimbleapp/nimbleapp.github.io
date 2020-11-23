@@ -1,9 +1,34 @@
+// Website data
+const saveApiVersion = 1;
+const MEET_TYPE = {
+  'GOOGLE' : 0,
+  'CUSTOM' : 1,
+};
+
+// User data
 let doHideWarning = false;
 let doPlaySound = false;
 let meets = [];
 
+function migrateSaveJson(json) {
+  let doLoop = true;
+  while (doLoop) {
+    const apiVersion = json.saveApiVersion || 0;
+    if (apiVersion < saveApiVersion) {
+      switch(apiVersion) {
+        case 0: json.meets.forEach((x) => { x.type = MEET_TYPE.GOOGLE; }); break;
+        default: break;
+      }
+      json.saveApiVersion = apiVersion + 1;
+    } else {
+      doLoop = false;
+    }
+  }
+  saveData();
+}
+
 function saveData() {
-  localStorage.setItem('save', JSON.stringify({ doHideWarning, doPlaySound, meets }));
+  localStorage.setItem('save', JSON.stringify({ doHideWarning, doPlaySound, meets, saveApiVersion }));
 }
 
 function updateMeetUi() {
@@ -62,9 +87,9 @@ window.addEventListener('load', () => {
   const save = localStorage.getItem('save');
   if (save) {
     const json = JSON.parse(save);
-    doHideWarning = json.doHideWarning;
-    doPlaySound = json.doPlaySound;
-    meets = json.meets;
+    // Migrates the save json if necessary
+    migrateSaveJson(json);
+    ({ doHideWarning, doPlaySound, meets } = json);
 
     updateMeetUi();
     updateVolumeButtonUi();
@@ -77,18 +102,35 @@ window.addEventListener('load', () => {
       doHideWarning = true;
       permWarning.remove();
       saveData();
-    })
+    });
   }
+
+  typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === 'Google meet' ? 'Code' : 'Link'; });
 
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
     const name = nameInput.value;
-    const code = codeInput.value;
+    let code = codeInput.value;
     if (time.length === 2 && name && code) {
+      const type = MEET_TYPE[typeDropdown.value === 'Google meet' ? 'GOOGLE' : 'CUSTOM'];
+      switch (type) {
+        case MEET_TYPE.GOOGLE: code = code.toLowerCase(); break;
+        case MEET_TYPE.CUSTOM:
+          if (!code.includes('http://') && !code.includes('https://')) {
+            code = `https://${code}`;
+          }
+          break;
+        default: throw new Error();
+      }
+      if (type === MEET_TYPE.GOOGLE) {
+        code = code.toLowerCase();
+      }
+
       meets.push({
         name,
-        code : code.toLowerCase(),
+        code,
         time : time.map((x) => Number(x)),
+        type,
       });
       updateMeetUi();
       saveData();
@@ -110,7 +152,26 @@ window.addEventListener('load', () => {
     const date = new Date();
     if (date.getSeconds() === 0) {
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
-      currentMeets.forEach((x) => window.open(`https://g.co/meet/${x.code}`));
+      if (currentMeets.map((x) => {
+        switch (x.type) {
+          case MEET_TYPE.GOOGLE: return `https://g.co/meet/${x.code}`;
+          case MEET_TYPE.CUSTOM: return x.code;
+          default: throw new Error();
+        }
+      }).filter((x) => !window.open(x)).forEach((x) => {
+        const warning = document.createElement('div');
+        warning.className = 'alert alert-danger';
+        warning.innerHTML = `The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. ` +
+          `Click <a href=${x} target="_blank">here<a> to join the meet.`;
+
+        const button = document.createElement('button');
+        button.className = 'close';
+        button.innerHTML = '<span>&times;</span>';
+        button.addEventListener('click', () => button.parentNode.remove());
+
+        warning.appendChild(button);
+        warnings.appendChild(warning);
+      }));
 
       if (currentMeets.length !== 0 && doPlaySound) {
         playSound();
