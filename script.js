@@ -20,12 +20,14 @@ function migrateSaveJson(json) {
         case 0: json.meets.forEach((x) => { x.type = MEET_TYPE.GOOGLE; }); break;
         default: break;
       }
+
       json.saveApiVersion = apiVersion + 1;
       didMigrate = true;
     } else {
       doLoop = false;
     }
   }
+
   return didMigrate;
 }
 
@@ -81,12 +83,12 @@ function updateVolumeButtonUi() {
   volumeIcon.src = `./img/volume${doPlaySound ? 'On' : 'Off'}.svg`;
 }
 
-function playSound() {
-  (new Audio('./sounds/ring.mp3')).play();
-}
-
 function isGoogleMeetSelected() {
   return typeDropdown.value === 'Google meet';
+}
+
+function playSound() {
+  (new Audio('./sounds/ring.mp3')).play();
 }
 
 window.addEventListener('load', () => {
