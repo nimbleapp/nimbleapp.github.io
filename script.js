@@ -111,6 +111,7 @@ window.addEventListener('load', () => {
   }
 
   typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === 'Google meet' ? 'Code' : 'Link'; });
+  typeDropdown.addEventListener('change', () => { nameInput.placeholder = typeDropdown.value === 'Google meet' ? 'Class name' : 'Site name'; });
 
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
