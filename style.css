@@ -8,6 +8,10 @@ h1, p {
   padding-bottom: 5px;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 .trashcan {
   width: 31px;
   opacity: 0;
