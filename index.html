@@ -8,21 +8,20 @@
 <script src="script.js"></script>
 
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-20T9ECKWW1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20T9ECKWW1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-20T9ECKWW1');
-</script>
+    gtag('config', 'G-20T9ECKWW1');
+  </script>
+
   <meta charset="utf-8">
   <title>Nimble</title>
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-    crossorigin="anonymous"
   >
   <link
     rel="stylesheet"
@@ -31,16 +30,60 @@
 </head>
 
 <body>
-  <div class="container justify-content-center">
-    <div class="mt-5">
-      <div class="mb-3">
-        <h1>Nimble</h1>
+<div
+  class="modal fade"
+  id="modal"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Info</h5>
+        <button 
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <strong>Welcome to Nimble!</strong>
+        <br>
+        <br>
+        <strong>What are the features of Nimble?</strong>
+        <br>
+Nimble is a site that allows you to input a Google Meet code or any link and select a time.
+Nimble will automatically open the site at the specified time and notify you with a gentle ring.
+        <br>
+        <br>
+        <strong>How do I use Nimble?</strong>
+        <br>
+Nimble is designed to be simple to learn and easy to use.
+All you have to do it enter the Google meet code or a link a site, give it a name, and enter a time you want the website to be opened.
+Then, press the plus button, and it should be added to the list of meets.
+        <br>
+        <br>
+        <strong>What if something is broken or I find bugs in the software?</strong>
+        <br>
+Please email us at nimblescheduler@gmail.com, and we will look into it immediatly!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="container justify-content-center">
+    <div class="mt-5 mb-3">
+      <h1>
+Nimble
+        <img src="./img/nimble.svg" width="36px" class="mb-2"></img>
+      </h1>
     </div>
     <div
       id="permWarning"
       class="alert alert-dark"
-      role="alert"
     >
 Check your browser's permissions to ensure that this website can open popups.
       <button
@@ -50,34 +93,44 @@ Check your browser's permissions to ensure that this website can open popups.
         <span>&times;</span>
       </button>
     </div>
+    <div id="warnings"></div>
     <div id="meets"></div>
     <div class="row">
       <div class="col">
         <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Class name, code, and time</span>
-          </div>
           <input
             id="nameInput"
-            type="text" 
+            class="form-control"
+            type="text"
+            placeholder="Class name"
+          >
+          <select
+            id="typeDropdown"
             class="form-control"
           >
+            <option>Google meet</option>
+            <option>Custom link</option>
+          </select>
           <input
             id="codeInput"
-            type="text"
             class="form-control"
+            type="text"
+            placeholder="Code"
           >
+          <div class="input-group-prepend">
+            <span class="input-group-text">Time</span>
+          </div>
           <input
             id="timeInput"
-            type="time"
             class="form-control"
+            type="time"
           >
         </div>
       </div>
       <div class="col-md-auto">
         <button
           id="addButton"
-          class="btn btn-dark rounded-circle"
+          class="btn btn-dark"
         >
           <img 
             src="./img/plus.svg"
@@ -88,7 +141,7 @@ Check your browser's permissions to ensure that this website can open popups.
     </div>
     <button
       id="volumeButton"
-      class="btn btn-dark rounded-circle mt-4"
+      class="btn btn-dark mt-2"
       type="button"
     >
       <img
@@ -97,7 +150,30 @@ Check your browser's permissions to ensure that this website can open popups.
         width="16px"
       >
     </button>
+    <button
+      id="questionButton"
+      class="btn btn-dark mt-2"
+      type="button"
+      data-toggle="modal" 
+      data-target="#modal"
+    >
+      <img
+        id="questionIcon"
+        src="img/question.svg"
+      width="16px"
+      > 
+    </button>
   </div>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"
+  ></script>
 </body>
 
 </html>
