@@ -114,9 +114,8 @@ window.addEventListener('load', () => {
     });
   }
 
-  const isGoogleMeet = isGoogleMeetSelected();
-  typeDropdown.addEventListener('change', () => { nameInput.placeholder = typeDropdown.value === isGoogleMeet ? 'Class name' : 'Site name'; });
-  typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === isGoogleMeet ? 'Code' : 'Link'; });
+  typeDropdown.addEventListener('change', () => { nameInput.placeholder = isGoogleMeetSelected() ? 'Class name' : 'Site name'; });
+  typeDropdown.addEventListener('change', () => { codeInput.placeholder = isGoogleMeetSelected() ? 'Code' : 'Link'; });
 
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
