@@ -18,6 +18,7 @@ h1, p {
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: #2FB8FF;
+  border-color: #2FB8FF;
 }
 
 @keyframes fadeIn {
