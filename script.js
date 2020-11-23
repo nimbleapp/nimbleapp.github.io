@@ -1,7 +1,9 @@
 let doHideWarning = false;
 let doPlaySound = false;
 let meets = [];
-
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
 function saveData() {
   localStorage.setItem('save', JSON.stringify({ doHideWarning, doPlaySound, meets }));
 }
