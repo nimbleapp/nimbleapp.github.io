@@ -83,6 +83,10 @@ function playSound() {
   (new Audio('./sounds/ring.mp3')).play();
 }
 
+function isGoogleMeetSelected() {
+  return typeDropdown.value === 'Google meet';
+}
+
 window.addEventListener('load', () => {
   const save = localStorage.getItem('save');
   if (save) {
@@ -105,25 +109,20 @@ window.addEventListener('load', () => {
     });
   }
 
-  typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === 'Google meet' ? 'Code' : 'Link'; });
+  const isGoogleMeet = isGoogleMeetSelected();
+  typeDropdown.addEventListener('change', () => { nameInput.placeholder = typeDropdown.value === isGoogleMeet ? 'Class name' : 'Site name'; });
+  typeDropdown.addEventListener('change', () => { codeInput.placeholder = typeDropdown.value === isGoogleMeet ? 'Code' : 'Link'; });
 
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
     const name = nameInput.value;
     let code = codeInput.value;
     if (time.length === 2 && name && code) {
-      const type = MEET_TYPE[typeDropdown.value === 'Google meet' ? 'GOOGLE' : 'CUSTOM'];
-      switch (type) {
-        case MEET_TYPE.GOOGLE: code = code.toLowerCase(); break;
-        case MEET_TYPE.CUSTOM:
-          if (!code.includes('http://') && !code.includes('https://')) {
-            code = `https://${code}`;
-          }
-          break;
-        default: throw new Error();
-      }
+      const type = MEET_TYPE[isGoogleMeetSelected() ? 'GOOGLE' : 'CUSTOM'];
       if (type === MEET_TYPE.GOOGLE) {
         code = code.toLowerCase();
+      } else if (!code.includes('http://') && !code.includes('https://')) {
+        code = `https://${code}`;
       }
 
       meets.push({
@@ -152,13 +151,7 @@ window.addEventListener('load', () => {
     const date = new Date();
     if (date.getSeconds() === 0) {
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
-      if (currentMeets.map((x) => {
-        switch (x.type) {
-          case MEET_TYPE.GOOGLE: return `https://g.co/meet/${x.code}`;
-          case MEET_TYPE.CUSTOM: return x.code;
-          default: throw new Error();
-        }
-      }).filter((x) => !window.open(x)).forEach((x) => {
+      if (currentMeets.map((x) => x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code).filter((x) => !window.open(x)).forEach((x) => {
         const warning = document.createElement('div');
         warning.className = 'alert alert-danger';
         warning.innerHTML = `The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. ` +
