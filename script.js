@@ -12,6 +12,7 @@ let meets = [];
 
 function migrateSaveJson(json) {
   let doLoop = true;
+  let didMigrate = false;
   while (doLoop) {
     const apiVersion = json.saveApiVersion || 0;
     if (apiVersion < saveApiVersion) {
@@ -20,11 +21,12 @@ function migrateSaveJson(json) {
         default: break;
       }
       json.saveApiVersion = apiVersion + 1;
+      didMigrate = true;
     } else {
       doLoop = false;
     }
   }
-  saveData();
+  return didMigrate;
 }
 
 function saveData() {
@@ -92,8 +94,11 @@ window.addEventListener('load', () => {
   if (save) {
     const json = JSON.parse(save);
     // Migrates the save json if necessary
-    migrateSaveJson(json);
+    let didMigrate = migrateSaveJson(json);
     ({ doHideWarning, doPlaySound, meets } = json);
+    if (didMigrate) {
+      saveData();
+    }
 
     updateMeetUi();
     updateVolumeButtonUi();

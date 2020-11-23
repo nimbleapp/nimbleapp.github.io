@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html>
-<link
-  rel="icon"
-  type="image/svg"
-  href="./img/nimble.svg"
->
-<script src="script.js"></script>
 
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-20T9ECKWW1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-20T9ECKWW1');
-</script>
-
-  <meta charset="utf-8">
+  <meta charset="utf-8" http-equiv="Cache-control: must-revalidate">
   <title>Nimble</title>
+  <link
+    rel="icon"
+    type="image/svg"
+    href="./img/nimble.svg"
+  >
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -27,58 +17,29 @@
     rel="stylesheet"
     href="style.css"
   >
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-20T9ECKWW1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-20T9ECKWW1');
+  </script>
+  <script src="script.js"></script>
 </head>
 
 <body>
-<div
-  class="modal fade"
-  id="modal"
->
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Info</h5>
-        <button 
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <strong>Welcome to Nimble!</strong>
-        <br>
-        <br>
-        <strong>What are the features of Nimble?</strong>
-        <br>
-Nimble is a site that allows you to input a Google Meet code or any link and select a time.
-Nimble will automatically open the site at the specified time and notify you with a gentle ring.
-        <br>
-        <br>
-        <strong>How do I use Nimble?</strong>
-        <br>
-Nimble is designed to be simple to learn and easy to use.
-All you have to do it enter the Google meet code or a link a site, give it a name, and enter a time you want the website to be opened.
-Then, press the plus button, and it should be added to the list of meets.
-        <br>
-        <br>
-        <strong>What if something is broken or I find bugs in the software?</strong>
-        <br>
-Please email us at nimblescheduler@gmail.com, and we will look into it immediatly!
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
   <div class="container justify-content-center">
     <div class="mt-5 mb-3">
       <h1>
 Nimble
-        <img src="./img/nimble.svg" width="36px" class="mb-2"></img>
+        <img
+          src="./img/nimble.svg"
+          width="36px"
+          class="mb-2"
+        >
       </h1>
     </div>
     <div
@@ -139,30 +100,81 @@ Check your browser's permissions to ensure that this website can open popups.
         </button>
       </div>
     </div>
-    <button
-      id="volumeButton"
-      class="btn btn-dark mt-2"
-      type="button"
-    >
-      <img
-        id="volumeIcon"
-        src="img/volumeOn.svg"
-        width="16px"
+    <div class='mt-3'>
+      <button
+        id="volumeButton"
+        class="btn btn-dark mr-2"
       >
-    </button>
-    <button
-      id="questionButton"
-      class="btn btn-dark mt-2"
-      type="button"
-      data-toggle="modal" 
-      data-target="#modal"
-    >
-      <img
-        id="questionIcon"
-        src="img/question.svg"
-      width="16px"
-      > 
-    </button>
+        <img
+          id="volumeIcon"
+          src="img/volumeOn.svg"
+          width="16px"
+        >
+      </button>
+      <button
+        id="questionButton"
+        class="btn btn-dark"
+        data-toggle="modal" 
+        data-target="#modal"
+      >
+        <img
+          id="questionIcon"
+          src="img/question.svg"
+          width="16px"
+        > 
+      </button>
+    </div>
+  </div>
+  <div
+    class="modal fade"
+    id="modal"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Info</h5>
+          <button
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <strong>Welcome to Nimble!</strong>
+          <br>
+          <br>
+          <strong>What are the features of Nimble?</strong>
+          <br>
+Nimble is a site that allows you to input a Google Meet code or any link and have the page opened at a specific time.
+When it is time, Nimble will notify you with a gentle ring.
+          <br>
+          <br>
+          <strong>How do I use Nimble?</strong>
+          <br>
+Nimble is designed to be simple to learn and easy to use.
+Enter a Google meet code or a link to a site, give the meeting a name, and enter a time you want the website to be opened.
+Then, press the plus button, and it should be added to the list of meets. The entries are automatically saved, so you do not have to input them again.
+          <br>
+          <br>
+          <strong>How do I allow pop-ups from Nimble?</strong>
+          <br>
+The easiest way is to input a random name and link or code and set the time to one minute in the future. If pop-ups are blocked, the web browser will prompt you to enable them.
+          <br>
+          <br>
+          <strong>What if something is broken or I find bugs in the software?</strong>
+          <br>
+Please email us at nimblescheduler@gmail.com, and we will look into it immediately.
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-primary"
+            data-dismiss="modal"
+          >Close</button>
+        </div>
+      </div>
+    </div>
   </div>
   <script
     src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
