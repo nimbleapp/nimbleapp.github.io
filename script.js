@@ -24,7 +24,6 @@ function migrateSaveJson(json) {
       doLoop = false;
     }
   }
-  saveData();
 }
 
 function saveData() {
