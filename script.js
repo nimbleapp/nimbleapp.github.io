@@ -83,10 +83,6 @@ function updateVolumeButtonUi() {
   volumeIcon.src = `./img/volume${doPlaySound ? 'On' : 'Off'}.svg`;
 }
 
-function isGoogleMeetSelected() {
-  return typeDropdown.value === 'Google meet';
-}
-
 function playSound() {
   (new Audio('./sounds/ring.mp3')).play();
 }
@@ -116,8 +112,8 @@ window.addEventListener('load', () => {
     });
   }
 
-  typeDropdown.addEventListener('change', () => { nameInput.placeholder = isGoogleMeetSelected() ? 'Class name' : 'Site name'; });
-  typeDropdown.addEventListener('change', () => { codeInput.placeholder = isGoogleMeetSelected() ? 'Code' : 'Link'; });
+  typeDropdown.addEventListener('change', () => { nameInput.placeholder = `${[ 'Class', 'Site' ][typeDropdown.selectedIndex]} name`; });
+  typeDropdown.addEventListener('change', () => { codeInput.placeholder = [ 'Code', 'Link' ][typeDropdown.selectedIndex]; });
 
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
