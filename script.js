@@ -1,8 +1,8 @@
 // Website data
 const saveApiVersion = 1;
 const MEET_TYPE = {
-  'GOOGLE' : 0,
-  'CUSTOM' : 1,
+  GOOGLE : 0,
+  CUSTOM : 1,
 };
 
 // User data
@@ -16,7 +16,7 @@ function migrateSaveJson(json) {
   while (doLoop) {
     const apiVersion = json.saveApiVersion || 0;
     if (apiVersion < saveApiVersion) {
-      switch(apiVersion) {
+      switch (apiVersion) {
         case 0: json.meets.forEach((x) => { x.type = MEET_TYPE.GOOGLE; }); break;
         default: break;
       }
@@ -60,7 +60,7 @@ function updateMeetUi() {
     colElement.className = 'col';
 
     const imgElement = document.createElement('img');
-    imgElement.className = 'trashcan float-right'
+    imgElement.className = 'trashcan float-right';
     imgElement.src = './img/trash.svg';
     imgElement.addEventListener('click', () => {
       meets.splice(i, 1);
@@ -96,7 +96,7 @@ window.addEventListener('load', () => {
   if (save) {
     const json = JSON.parse(save);
     // Migrates the save json if necessary
-    let didMigrate = migrateSaveJson(json);
+    const didMigrate = migrateSaveJson(json);
     ({ doHideWarning, doPlaySound, meets } = json);
     if (didMigrate) {
       saveData();
@@ -157,11 +157,11 @@ window.addEventListener('load', () => {
     const date = new Date();
     if (date.getSeconds() === 0) {
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
-      if (currentMeets.map((x) => x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code).filter((x) => !window.open(x)).forEach((x) => {
+      if (currentMeets.map((x) => (x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code)).filter((x) => !window.open(x)).forEach((x) => {
         const warning = document.createElement('div');
         warning.className = 'alert alert-danger';
-        warning.innerHTML = `The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. ` +
-          `Click <a href=${x} target="_blank">here<a> to join the meet.`;
+        warning.innerHTML = `The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. `
+          + `Click <a href=${x} target="_blank">here<a> to join the meet.`;
 
         const button = document.createElement('button');
         button.className = 'close';
