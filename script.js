@@ -120,7 +120,7 @@ window.addEventListener('load', () => {
     const name = nameInput.value;
     let code = codeInput.value;
     if (time.length === 2 && name && code) {
-      const type = MEET_TYPE[isGoogleMeetSelected() ? 'GOOGLE' : 'CUSTOM'];
+      const type = MEET_TYPE[typeDropdown.value === 'Google meet' ? 'GOOGLE' : 'CUSTOM'];
       if (type === MEET_TYPE.GOOGLE) {
         code = code.toLowerCase();
       } else if (!code.includes('http://') && !code.includes('https://')) {
@@ -149,9 +149,17 @@ window.addEventListener('load', () => {
     saveData();
   });
 
-  setInterval(() => {
+  function getRoundedMinuteTime() {
     const date = new Date();
-    if (date.getSeconds() === 0) {
+    date.setSeconds(0);
+    return date.setMilliseconds(0);
+  }
+
+  let lastMinute;
+  setInterval(() => {
+    const minuteTime = getRoundedMinuteTime();
+    if (lastMinute !== minuteTime) {
+      const date = new Date();
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
       if (currentMeets.map((x) => (x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code)).filter((x) => !window.open(x)).forEach((x) => {
         const warning = document.createElement('div');
@@ -171,6 +179,8 @@ window.addEventListener('load', () => {
       if (currentMeets.length !== 0 && doPlaySound) {
         playSound();
       }
+
+      lastMinute = minuteTime;
     }
   }, 1000);
 });
