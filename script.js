@@ -112,8 +112,11 @@ window.addEventListener('load', () => {
     });
   }
 
-  typeDropdown.addEventListener('change', () => { nameInput.placeholder = `${[ 'Class', 'Site' ][typeDropdown.selectedIndex]} name`; });
-  typeDropdown.addEventListener('change', () => { codeInput.placeholder = [ 'Code', 'Link' ][typeDropdown.selectedIndex]; });
+  typeDropdown.addEventListener('change', () => {
+    const index = typeDropdown.selectedIndex;
+    nameInput.placeholder = `${[ 'Class', 'Site' ][index]} name`;
+    codeInput.placeholder = [ 'Code', 'Link' ][index];
+  });
 
   addButton.addEventListener('click', () => {
     const time = timeInput.value.split(':');
