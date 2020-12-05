@@ -54,7 +54,7 @@ function updateMeetUi() {
 
     const textElement = document.createElement('p');
     const [ hours, minutes ] = x.time;
-    textElement.innerHTML = `${hours % 12 || 12}:${(minutes < 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
+    textElement.innerHTML = `${hours % 12 || 12}:${(minutes <= 9 ? '0' : '') + minutes} ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
 
     const colElement = document.createElement('div');
     colElement.className = 'col';
