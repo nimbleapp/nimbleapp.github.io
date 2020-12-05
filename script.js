@@ -17,8 +17,11 @@ function migrateSaveJson(json) {
     const apiVersion = json.saveApiVersion || 0;
     if (apiVersion < saveApiVersion) {
       switch (apiVersion) {
-        case 0: json.meets.forEach((x) => { x.type = MEET_TYPE.GOOGLE; }); break;
-        default: break;
+        case 0:
+          json.meets.forEach((x) => { x.type = MEET_TYPE.GOOGLE; });
+          break;
+        default:
+          break;
       }
 
       json.saveApiVersion = apiVersion + 1;
@@ -167,7 +170,7 @@ window.addEventListener('load', () => {
       if (currentMeets.map((x) => (x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code)).filter((x) => !window.open(x)).forEach((x) => {
         const warning = document.createElement('div');
         warning.className = 'alert alert-danger';
-        warning.innerHTML = `The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. `
+        warning.innerHTML = 'The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. '
           + `Click <a href=${x} target="_blank">here<a> to join the meet.`;
 
         const button = document.createElement('button');
