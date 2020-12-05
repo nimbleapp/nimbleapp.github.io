@@ -155,15 +155,9 @@ window.addEventListener('load', () => {
     saveData();
   });
 
-  function getRoundedMinuteTime() {
-    const date = new Date();
-    date.setSeconds(0);
-    return date.setMilliseconds(0);
-  }
-
   let lastMinute;
   setInterval(() => {
-    const minuteTime = getRoundedMinuteTime();
+    const minuteTime = (new Date()).setSeconds(0, 0);
     if (lastMinute !== minuteTime) {
       const date = new Date();
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
