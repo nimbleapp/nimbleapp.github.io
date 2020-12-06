@@ -10,30 +10,6 @@ let doHideWarning = false;
 let doPlaySound = false;
 let meets = [];
 
-function migrateSaveJson(json) {
-  let doLoop = true;
-  let didMigrate = false;
-  while (doLoop) {
-    const apiVersion = json.saveApiVersion || 0;
-    if (apiVersion < saveApiVersion) {
-      switch (apiVersion) {
-        case 0:
-          json.meets.forEach((x) => { x.type = MEET_TYPE.GOOGLE; });
-          break;
-        default:
-          break;
-      }
-
-      json.saveApiVersion = apiVersion + 1;
-      didMigrate = true;
-    } else {
-      doLoop = false;
-    }
-  }
-
-  return didMigrate;
-}
-
 function saveData() {
   localStorage.setItem('save', JSON.stringify({ doHideWarning, doPlaySound, meets, saveApiVersion }));
 }
@@ -82,20 +58,35 @@ function updateMeetUi() {
   });
 }
 
-function updateVolumeButtonUi() {
-  volumeIcon.src = `./img/volume${doPlaySound ? 'On' : 'Off'}.svg`;
-}
-
-function playSound() {
-  (new Audio('./sounds/ring.mp3')).play();
-}
-
 window.addEventListener('load', () => {
+  function updateVolumeButtonUi() {
+    volumeIcon.src = `./img/volume${doPlaySound ? '-on' : '-off'}.svg`;
+  }
+  
   const save = localStorage.getItem('save');
   if (save) {
     const json = JSON.parse(save);
     // Migrates the save json if necessary
-    const didMigrate = migrateSaveJson(json);
+    let doLoop = true;
+    let didMigrate = false;
+    while (doLoop) {
+      const apiVersion = json.saveApiVersion || 0;
+      if (apiVersion < saveApiVersion) {
+        switch (apiVersion) {
+          case 0:
+            json.meets.forEach((x) => { x.type = MEET_TYPE.GOOGLE; });
+            break;
+          default:
+            break;
+        }
+  
+        json.saveApiVersion = apiVersion + 1;
+        didMigrate = true;
+      } else {
+        doLoop = false;
+      }
+    }
+
     ({ doHideWarning, doPlaySound, meets } = json);
     if (didMigrate) {
       saveData();
@@ -108,6 +99,8 @@ window.addEventListener('load', () => {
   if (doHideWarning) {
     permWarning.remove();
   } else {
+    permWarning.style.display = 'inherit';
+
     closeWarningButton.addEventListener('click', () => {
       doHideWarning = true;
       permWarning.remove();
@@ -148,11 +141,50 @@ window.addEventListener('load', () => {
     }
   });
 
+  function playSound() {
+    (new Audio('./sounds/ring.mp3')).play();
+  }
+
   volumeButton.addEventListener('click', () => {
     doPlaySound = !doPlaySound;
     playSound();
     updateVolumeButtonUi();
     saveData();
+  });
+
+  function showNotification(message, status) {
+    const warning = document.createElement('div');
+    warning.className = `alert alert-${status}`;
+    warning.innerHTML = message;
+
+    const button = document.createElement('button');
+    button.className = 'close';
+    button.innerHTML = '<span>&times;</span>';
+    button.addEventListener('click', () => button.parentNode.remove());
+
+    warning.appendChild(button);
+    warnings.appendChild(warning);
+  }
+
+  function tryPlayingSound() {
+    if (doPlaySound) {
+      playSound();
+    }
+  }
+
+  popupButton.addEventListener('click', () => {
+    let didGetBlocked = false;
+    for (let i = 0; i < 2 && !didGetBlocked; i++) {
+      didGetBlocked = !window.open(window.location.href);
+    }
+
+    if (didGetBlocked) {
+      showNotification('Some of the pop-ups were blocked.', 'danger');
+    } else {
+      showNotification('The pop-ups opened successfully.', 'success');
+    }
+
+    tryPlayingSound();
   });
 
   let lastMinute;
@@ -162,22 +194,12 @@ window.addEventListener('load', () => {
       const date = new Date();
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
       if (currentMeets.map((x) => (x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code)).filter((x) => !window.open(x)).forEach((x) => {
-        const warning = document.createElement('div');
-        warning.className = 'alert alert-danger';
-        warning.innerHTML = 'The popup to your meet was blocked. Allow popups for this website to enable automatic window opening. '
-          + `Click <a href=${x} target="_blank">here<a> to join the meet.`;
-
-        const button = document.createElement('button');
-        button.className = 'close';
-        button.innerHTML = '<span>&times;</span>';
-        button.addEventListener('click', () => button.parentNode.remove());
-
-        warning.appendChild(button);
-        warnings.appendChild(warning);
+        createWarningNotification('The pop-up to your meet was blocked. Allow popups for this website to enable automatic window opening. '
+          + `Click <a href=${x} target="_blank">here<a> to join the meet.`, 'danger');
       }));
 
-      if (currentMeets.length !== 0 && doPlaySound) {
-        playSound();
+      if (currentMeets.length !== 0) {
+        tryPlayingSound();
       }
 
       lastMinute = minuteTime;

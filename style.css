@@ -29,6 +29,10 @@ img {
   padding-top: 8px;
 }
 
+.black {
+  color: black;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

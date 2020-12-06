@@ -24,6 +24,7 @@
     function gtag() {
       dataLayer.push(arguments);
     }
+
     gtag('js', new Date());
     gtag('config', 'G-20T9ECKWW1');
   </script>
@@ -45,6 +46,7 @@ Nimble
     <div
       id="permWarning"
       class="alert alert-dark"
+      style="display: none"
     >
 Check your browser's permissions to ensure that this website can open popups.
       <button
@@ -107,19 +109,27 @@ Check your browser's permissions to ensure that this website can open popups.
       >
         <img
           id="volumeIcon"
-          src="img/volumeOn.svg"
+          src="img/volume-on.svg"
           width="16px"
         >
       </button>
       <button
         id="questionButton"
-        class="btn btn-dark"
+        class="btn btn-dark mr-2"
         data-toggle="modal" 
-        data-target="#infoModal"
+        data-target="#faqModal"
       >
         <img
-          id="questionIcon"
           src="img/question.svg"
+          width="16px"
+        > 
+      </button>
+      <button
+        id="popupButton"
+        class="btn btn-dark"
+      >
+        <img
+          src="img/arrow-bar-up.svg"
           width="16px"
         > 
       </button>
@@ -127,51 +137,43 @@ Check your browser's permissions to ensure that this website can open popups.
   </div>
   <div
     class="modal fade"
-    id="infoModal"
+    id="faqModal"
   >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Info</h5>
-          <button
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h5 class="modal-title">FAQ</h5>
         </div>
-        <div class="modal-body">
-          <strong>Welcome to Nimble!</strong>
-          <br>
-          <br>
-          <strong>What are the features of Nimble?</strong>
-          <br>
+        <div class="modal-body black-text">
+          <p class="black">
+            <strong>Welcome to Nimble!</strong>
+          </p>
+          <p class="black">
+            <strong>What are its features?</strong>
+            <br>
 Nimble is a site that allows you to input a Google Meet code or any link and have the page opened at a specific time.
 When it is time, Nimble will notify you with a gentle ring.
-          <br>
-          <br>
-          <strong>How do I use Nimble?</strong>
-          <br>
+          </p>
+          <p class="black">
+            <strong>How do I use it?</strong>
+            <br>
 Nimble is designed to be simple to learn and easy to use.
-Enter a Google meet code or a link to a site, give the meeting a name, and enter a time you want the website to be opened.
-Then, press the plus button, and it should be added to the list of meets. The entries are automatically saved, so you do not have to input them again.
-          <br>
-          <br>
-          <strong>How do I allow pop-ups from Nimble?</strong>
-          <br>
-The easiest way is to input a random name and link or code and set the time to one minute in the future. If pop-ups are blocked, the web browser will prompt you to enable them.
-          <br>
-          <br>
-          <strong>What if something is broken or I find bugs in the software?</strong>
-          <br>
-Please email us at nimblescheduler@gmail.com, and we will look into it immediately.
-        </div>
-        <div class="modal-footer">
-          <button
-            class="btn btn-primary"
-            data-dismiss="modal"
-          >Close</button>
+Enter a Google meet code or a link to a site, give it a name, and enter a time you want the website to be opened.
+Then, press the plus button, and it should be added to the list of meets.
+The entries are automatically saved, so you do not have to input them again.
+          </p>
+          <p class="black">
+            <strong>How do I enable pop-ups?</strong>
+            <br>
+The easiest way is to press the button with the up-arrow icon.
+The website will try to open new windows and inform you of the result.
+If pop-ups are blocked, the web browser will prompt you to enable them.
+          </p>
+          <p class="black">
+            <strong>How can I contact you?</strong>
+            <br>
+If you have any suggestions or encounter any problems, please email us at <i>nimblescheduler@gmail.com</i>, and we will look into it immediately.
+          </p>
         </div>
       </div>
     </div>
