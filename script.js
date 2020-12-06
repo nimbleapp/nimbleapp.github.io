@@ -175,7 +175,7 @@ window.addEventListener('load', () => {
   popupButton.addEventListener('click', () => {
     let didGetBlocked = false;
     for (let i = 0; i < 2 && !didGetBlocked; i++) {
-      didGetBlocked = !window.open(window.location.href);
+      didGetBlocked = !window.open('popup.html');
     }
 
     if (didGetBlocked) {
