@@ -40,7 +40,7 @@ function updateMeetUi() {
 
     const imgElement = document.createElement('img');
     imgElement.className = 'trashcan float-right';
-    imgElement.src = './img/trash.svg';
+    imgElement.src = './res/img/trash.svg';
     imgElement.addEventListener('click', () => {
       meets.splice(i, 1);
       updateMeetUi();
@@ -60,7 +60,7 @@ function updateMeetUi() {
 
 window.addEventListener('load', () => {
   function updateVolumeButtonUi() {
-    volumeIcon.src = `./img/volume${doPlaySound ? '-on' : '-off'}.svg`;
+    volumeIcon.src = `./res/img/volume${doPlaySound ? '-on' : '-off'}.svg`;
   }
   
   const save = localStorage.getItem('save');
@@ -142,7 +142,7 @@ window.addEventListener('load', () => {
   });
 
   function playSound() {
-    (new Audio('./sounds/ring.mp3')).play();
+    (new Audio('./res/audio/ring.mp3')).play();
   }
 
   volumeButton.addEventListener('click', () => {
