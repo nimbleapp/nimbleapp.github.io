@@ -33,6 +33,10 @@ img {
   color: black;
 }
 
+#permWarning {
+  display: none;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
