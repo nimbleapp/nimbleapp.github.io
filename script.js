@@ -66,6 +66,7 @@ window.addEventListener('load', () => {
   const save = localStorage.getItem('save');
   if (save) {
     const json = JSON.parse(save);
+
     // Migrates the save json if necessary
     let doLoop = true;
     let didMigrate = false;
