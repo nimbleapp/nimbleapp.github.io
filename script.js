@@ -161,7 +161,7 @@ window.addEventListener('load', () => {
     const button = document.createElement('button');
     button.className = 'close';
     button.innerHTML = '<span>&times;</span>';
-    button.addEventListener('click', () => button.parentNode.remove());
+    button.addEventListener('click', button.parentNode.remove;
 
     warning.appendChild(button);
     warnings.appendChild(warning);
@@ -195,7 +195,7 @@ window.addEventListener('load', () => {
       const date = new Date();
       const currentMeets = meets.filter((x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes());
       if (currentMeets.map((x) => (x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code)).filter((x) => !window.open(x)).forEach((x) => {
-        createWarningNotification('The pop-up to your meet was blocked. Allow popups for this website to enable automatic window opening. '
+        createWarningNotification('The pop-up to your meet was blocked. Allow pop-ups for this website to enable automatic window opening. '
           + `Click <a href=${x} target="_blank">here<a> to join the meet.`, 'danger');
       }));
 
