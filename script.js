@@ -161,7 +161,7 @@ window.addEventListener('load', () => {
     const button = document.createElement('button');
     button.className = 'close';
     button.innerHTML = '<span>&times;</span>';
-    button.addEventListener('click', button.parentNode.remove);
+    button.addEventListener('click', () => button.parentNode.remove());
 
     warning.appendChild(button);
     warnings.appendChild(warning);
