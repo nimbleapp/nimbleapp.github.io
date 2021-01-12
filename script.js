@@ -47,8 +47,14 @@ function updateMeetUi() {
       saveData();
     });
 
-    rowElement.addEventListener('mouseover', () => { imgElement.style.animation = 'fadeIn 0.2s ease-in-out forwards'; });
-    rowElement.addEventListener('mouseleave', () => { imgElement.style.animation = 'fadeOut 0.2s ease-in-out forwards'; });
+    [
+      [ 'over', 'In' ],
+      [ 'leave', 'Out' ],
+    ].forEach((x) => {
+      rowElement.addEventListener(`mouse${x[0]}`, () => {
+        imgElement.style.animation = `fade${x[1]} 0.2s ease-in-out forwards`;
+      });
+    });
 
     colMdAutoElement.appendChild(textElement);
     colElement.appendChild(imgElement);
