@@ -6,7 +6,8 @@ body {
   background-color: #2c2f33;
 }
 
-h1, p {
+h1,
+p {
   color: #cccccc;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -16,7 +17,12 @@ img {
   -webkit-user-drag: none;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited, .btn-primary:focus, .btn-primary:active:focus {
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus,
+.btn-primary:active:focus {
   background-color: #2fb8ff;
   border-color: #2fb8ff;
 }
