@@ -17,16 +17,6 @@ img {
   -webkit-user-drag: none;
 }
 
-.btn-primary,
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary:visited,
-.btn-primary:focus,
-.btn-primary:active:focus {
-  background-color: #2fb8ff;
-  border-color: #2fb8ff;
-}
-
 .trashcan {
   width: 31px;
   opacity: 0;
