@@ -8,9 +8,9 @@ body {
 
 h1,
 p {
-  color: #cccccc;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  color: #ccc;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 img {
@@ -18,11 +18,11 @@ img {
 }
 
 .trashcan {
-  width: 31px;
+  width: 24px;
   opacity: 0;
   cursor: pointer;
-  padding-right: 11px;
-  padding-top: 8px;
+  margin-top: 6px;
+  margin-right: 9px;
 }
 
 .black {

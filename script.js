@@ -33,8 +33,8 @@ function updateMeetUi() {
       const rowElement = document.createElement('div');
       rowElement.className = 'row';
 
-      const colMdAutoElement = document.createElement('div');
-      colMdAutoElement.className = 'col-md-auto';
+      const textColElement = document.createElement('div');
+      textColElement.className = 'col-md-auto';
 
       const textElement = document.createElement('p');
       const [hours, minutes] = x.time;
@@ -42,8 +42,8 @@ function updateMeetUi() {
         (minutes <= 9 ? '0' : '') + minutes
       } ${hours < 12 ? 'A' : 'P'}M - ${x.name} : <i>${x.code}</i>`;
 
-      const colElement = document.createElement('div');
-      colElement.className = 'col';
+      const trashcanColElement = document.createElement('div');
+      trashcanColElement.className = 'col';
 
       const imgElement = document.createElement('img');
       imgElement.className = 'trashcan float-right';
@@ -63,10 +63,10 @@ function updateMeetUi() {
         });
       });
 
-      colMdAutoElement.appendChild(textElement);
-      colElement.appendChild(imgElement);
-      rowElement.appendChild(colMdAutoElement);
-      rowElement.appendChild(colElement);
+      textColElement.appendChild(textElement);
+      trashcanColElement.appendChild(imgElement);
+      rowElement.appendChild(textColElement);
+      rowElement.appendChild(trashcanColElement);
       div.appendChild(rowElement);
     });
 }
