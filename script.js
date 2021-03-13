@@ -75,8 +75,8 @@ window.addEventListener('load', () => {
     const { classList } = volumeIcon;
     const iconTypes = ['up', 'mute'].map((x) => `bi-volume-${x}-fill`);
     const index = doPlaySound ? 0 : 1;
-    classList.remove(iconTypes[index]);
-    classList.add(iconTypes[1 - index]);
+    classList.add(iconTypes[index]);
+    classList.remove(iconTypes[1 - index]);
   }
 
   const save = localStorage.getItem('save');
