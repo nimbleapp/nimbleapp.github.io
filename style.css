@@ -1,14 +1,10 @@
-::selection {
-  background: #99dcff;
-}
-
 body {
-  background-color: #2c2f33;
+  background-color: #0d1117;
 }
 
 h1,
 p {
-  color: #ccc;
+  color: #c9d1d9;
   padding-top: 6px;
   padding-bottom: 6px;
 }
@@ -17,12 +13,19 @@ img {
   -webkit-user-drag: none;
 }
 
+.icon {
+  color: #c9d1d9;
+}
+
+.img-button {
+  font-size: 16px;
+}
+
 .trashcan {
-  width: 24px;
   opacity: 0;
   cursor: pointer;
-  margin-top: 6px;
-  margin-right: 9px;
+  margin-top: 8px;
+  margin-right: 12px;
 }
 
 .black {
