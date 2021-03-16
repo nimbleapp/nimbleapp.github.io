@@ -161,8 +161,10 @@ window.addEventListener('load', () => {
     }
   });
 
-  function playSound() {
-    new Audio('./res/ring.mp3').play();
+  async function playSound() {
+    new Audio('./res/ring.mp3').play().catch(() => {
+      // ignore
+    });
   }
 
   volumeButton.addEventListener('click', () => {
