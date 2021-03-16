@@ -161,7 +161,7 @@ window.addEventListener('load', () => {
     }
   });
 
-  async function playSound() {
+  function playSound() {
     new Audio('./res/ring.mp3').play().catch(() => {
       // ignore
     });
