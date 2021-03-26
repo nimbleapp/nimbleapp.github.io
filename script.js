@@ -1,5 +1,5 @@
 // Website data
-const saveApiVersion = 1;
+const SAVE_API_VERSION = 1;
 const MEET_TYPE = {
   GOOGLE: 0,
   CUSTOM: 1,
@@ -13,7 +13,7 @@ let meets = [];
 function saveData() {
   localStorage.setItem(
     'save',
-    JSON.stringify({ doHideWarning, doPlaySound, meets, saveApiVersion })
+    JSON.stringify({ doHideWarning, doPlaySound, meets, SAVE_API_VERSION })
   );
 }
 
@@ -87,8 +87,8 @@ window.addEventListener('load', () => {
     let doLoop = true;
     let didMigrate = false;
     while (doLoop) {
-      const apiVersion = json.saveApiVersion || 0;
-      if (apiVersion < saveApiVersion) {
+      const apiVersion = json.SAVE_API_VERSION || 0;
+      if (apiVersion < SAVE_API_VERSION) {
         switch (apiVersion) {
           case 0:
             json.meets.forEach((x) => {
@@ -99,7 +99,7 @@ window.addEventListener('load', () => {
             break;
         }
 
-        json.saveApiVersion = apiVersion + 1;
+        json.SAVE_API_VERSION = apiVersion + 1;
         didMigrate = true;
       } else {
         doLoop = false;
@@ -137,9 +137,9 @@ window.addEventListener('load', () => {
     const time = timeInput.value.split(':');
     const name = nameInput.value;
     let code = codeInput.value;
+    console.log(typeDropdown.selectedIndex);
     if (time.length === 2 && name && code) {
-      const type =
-        MEET_TYPE[typeDropdown.value === 'Google meet' ? 'GOOGLE' : 'CUSTOM'];
+      const type = typeDropdown.selectedIndex;
       if (type === MEET_TYPE.GOOGLE) {
         code = code.toLowerCase();
       } else if (!code.includes('http://') && !code.includes('https://')) {
@@ -162,9 +162,11 @@ window.addEventListener('load', () => {
   });
 
   function playSound() {
-    new Audio('./res/ring.mp3').play().catch(() => {
+    try {
+      new Audio('./res/ring.mp3').play();
+    } catch (_err) {
       // ignore
-    });
+    }
   }
 
   volumeButton.addEventListener('click', () => {
@@ -212,31 +214,33 @@ window.addEventListener('load', () => {
   let lastMinute;
   setInterval(() => {
     const minuteTime = new Date().setSeconds(0, 0);
-    if (lastMinute !== minuteTime) {
-      const date = new Date();
-      const currentMeets = meets.filter(
-        (x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()
-      );
-      if (
-        currentMeets
-          .map((x) =>
-            x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code
-          )
-          .filter((x) => !window.open(x))
-          .forEach((x) => {
-            createWarningNotification(
-              'The pop-up to your meet was blocked. Allow pop-ups for this website to enable automatic window opening. ' +
-                `Click <a href=${x} target="_blank">here<a> to join the meet.`,
-              'danger'
-            );
-          })
-      );
-
-      if (currentMeets.length !== 0) {
-        tryPlayingSound();
-      }
-
-      lastMinute = minuteTime;
+    if (lastMinute === minuteTime) {
+      return;
     }
+
+    const date = new Date();
+    const currentMeets = meets.filter(
+      (x) => x.time[0] === date.getHours() && x.time[1] === date.getMinutes()
+    );
+    if (
+      currentMeets
+        .map((x) =>
+          x.type === MEET_TYPE.GOOGLE ? `https://g.co/meet/${x.code}` : x.code
+        )
+        .filter((x) => !window.open(x))
+        .forEach((x) =>
+          createWarningNotification(
+            'The pop-up to your meet was blocked. Allow pop-ups for this website to enable automatic window opening. ' +
+              `Click <a href=${x} target="_blank">here<a> to join the meet.`,
+            'danger'
+          )
+        )
+    );
+
+    if (currentMeets.length !== 0) {
+      tryPlayingSound();
+    }
+
+    lastMinute = minuteTime;
   }, 1000);
 });
