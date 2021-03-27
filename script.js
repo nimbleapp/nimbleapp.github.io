@@ -87,7 +87,7 @@ window.addEventListener('load', () => {
     let doLoop = true;
     let didMigrate = false;
     while (doLoop) {
-      const apiVersion = json.SAVE_API_VERSION || 0;
+      const apiVersion = json.SAVE_API_VERSION ?? 0;
       if (apiVersion < SAVE_API_VERSION) {
         switch (apiVersion) {
           case 0:
