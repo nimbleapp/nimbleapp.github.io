@@ -83,7 +83,7 @@ window.addEventListener('load', () => {
   if (save) {
     const json = JSON.parse(save);
 
-    // Migrates the save json if necessary
+    // Migrates the save JSON if necessary
     let doLoop = true;
     let didMigrate = false;
     while (doLoop) {
@@ -161,9 +161,9 @@ window.addEventListener('load', () => {
     }
   });
 
-  function playSound() {
+  async function playSound() {
     try {
-      new Audio('./res/ring.mp3').play();
+      await new Audio('./res/ring.mp3').play();
     } catch (_err) {
       // ignore
     }
