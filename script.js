@@ -114,6 +114,7 @@ window.addEventListener('load', () => {
     updateMeetUi();
   }
   updateVolumeButtonUi();
+  content.classList.remove('hide');
 
   if (doHideWarning) {
     permWarning.remove();

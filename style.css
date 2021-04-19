@@ -13,6 +13,10 @@ img {
   -webkit-user-drag: none;
 }
 
+.hide {
+  display: none;
+}
+
 .icon {
   color: #ccd1d6;
 }
