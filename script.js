@@ -7,7 +7,7 @@ const MEET_TYPE = {
 
 // User data
 let doHideWarning = false;
-let doPlaySound = false;
+let doPlaySound = true;
 let meets = [];
 
 function saveData() {
@@ -112,8 +112,8 @@ window.addEventListener('load', () => {
     }
 
     updateMeetUi();
-    updateVolumeButtonUi();
   }
+  updateVolumeButtonUi();
 
   if (doHideWarning) {
     permWarning.remove();
