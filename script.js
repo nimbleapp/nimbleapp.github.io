@@ -84,15 +84,14 @@ window.addEventListener('load', () => {
     const json = JSON.parse(save);
 
     // Migrates the save JSON if necessary
-    let doLoop = true;
     let didMigrate = false;
-    while (doLoop) {
+    while (true) {
       const apiVersion = json.SAVE_API_VERSION ?? 0;
       if (apiVersion < SAVE_API_VERSION) {
         switch (apiVersion) {
           case 0:
-            json.meets.forEach((x) => {
-              x.type = MEET_TYPE.GOOGLE;
+            json.meets.forEach((meet) => {
+              meet.type = MEET_TYPE.GOOGLE;
             });
             break;
           default:
@@ -102,7 +101,7 @@ window.addEventListener('load', () => {
         json.SAVE_API_VERSION = apiVersion + 1;
         didMigrate = true;
       } else {
-        doLoop = false;
+        break;
       }
     }
 
